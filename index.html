@@ -6,23 +6,87 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#087c73">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Meine Pocketcards</title>
 <meta name="apple-mobile-web-app-title" content="Meine Pocketcards">
+<title>Meine Pocketcards</title>
 <link rel="apple-touch-icon" href="./Mein%20Pocket%20Card%20Symbol.png">
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f2f7f6;color:#173d39;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
-header{background:#087c73;color:white;padding:40px 22px 28px;border-radius:0 0 28px 28px}
-h1{margin:0 0 5px;font-size:30px}
-main{padding:22px 18px 35px;max-width:700px;margin:auto}
-#search,select{width:100%;padding:16px;border:1px solid #d1dddd;border-radius:15px;font-size:17px;background:white;color:#173d39}
+
+body{
+ margin:0;
+ background:#f2f7f6;
+ color:#173d39;
+ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+header{
+ background:#087c73;
+ color:white;
+ padding:40px 22px 28px;
+ border-radius:0 0 28px 28px;
+}
+
+h1{
+ margin:0;
+ font-size:30px;
+ font-weight:700;
+}
+
+main{
+ padding:22px 18px 35px;
+ max-width:700px;
+ margin:auto;
+}
+
+#search,select{
+ width:100%;
+ padding:16px;
+ border:1px solid #d1dddd;
+ border-radius:15px;
+ font-size:17px;
+ background:white;
+ color:#173d39;
+}
+
 #search{margin-bottom:24px}
 h2{font-size:22px;margin:0 0 16px}
-.category{background:#f8fafb;border-radius:19px;margin:12px 0;overflow:hidden}
-.category summary{list-style:none;display:flex;align-items:center;gap:12px;min-height:85px;padding:20px 18px;cursor:pointer;font-size:20px;font-weight:650;color:#263344}
+
+.category{
+ background:#f8fafb;
+ border-radius:19px;
+ margin:12px 0;
+ overflow:hidden;
+}
+
+.category summary{
+ list-style:none;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ min-height:85px;
+ padding:20px 18px;
+ cursor:pointer;
+ font-size:20px;
+ font-weight:650;
+ color:#263344;
+}
+
 .category summary::-webkit-details-marker{display:none}
 .category[open] summary{background:#e1f0eb;color:#087c73}
-.category-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;background:#e1f0eb;color:#087c73;flex-shrink:0;font-size:21px}
+
+.category-icon{
+ width:43px;
+ height:43px;
+ display:grid;
+ place-items:center;
+ border-radius:12px;
+ background:#e1f0eb;
+ color:#087c73;
+ flex-shrink:0;
+ font-size:21px;
+}
+
 .category[open] .category-icon{background:white}
 .category-title{flex:1;min-width:0}
 .count{font-size:13px;font-weight:500;color:#718096;margin-left:5px}
@@ -31,37 +95,94 @@ h2{font-size:22px;margin:0 0 16px}
 .category-content{padding:8px 14px 14px;background:white}
 .doc{padding:14px 5px;border-bottom:1px solid #edf1f2}
 .doc:last-child{border-bottom:0}
-.doc-open{width:100%;display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0 8px;text-align:left;color:#173d39;font-size:17px;font-weight:600;cursor:pointer}
+
+.doc-open{
+ width:100%;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ background:none;
+ border:0;
+ padding:4px 0 8px;
+ text-align:left;
+ color:#173d39;
+ font-size:17px;
+ font-weight:600;
+ cursor:pointer;
+}
+
 .doc-open span:first-child{font-size:20px}
 .doc-name{flex:1;overflow-wrap:anywhere}
 .arrow{color:#94a3b8;font-size:24px}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin:5px 0 0 32px}
-.actions button{border:0;border-radius:10px;padding:9px 12px;font-size:14px;font-weight:600}
+
+.actions button{
+ border:0;
+ border-radius:10px;
+ padding:9px 12px;
+ font-size:14px;
+ font-weight:600;
+}
+
 .favorite{background:#e2f0ed;color:#075c55}
 .danger{background:#fff0ed;color:#9d3425}
 .empty{color:#64748b;margin:10px 5px 5px;font-size:15px}
 #no-results{display:none;color:#64748b;margin:18px 0}
-.upload-area{margin-top:32px;padding:21px 18px;background:white;border-radius:19px}
+
+.upload-area{
+ margin-top:32px;
+ padding:21px 18px;
+ background:white;
+ border-radius:19px;
+}
+
 .upload-area h2{margin-bottom:14px}
 .upload-area label:not(.upload){display:block;margin-bottom:9px;font-size:15px}
-.upload{display:block;text-align:center;margin-top:16px;border-radius:13px;padding:16px;background:#087c73;color:white;font-size:17px;font-weight:650;cursor:pointer}
+
+.upload{
+ display:block;
+ text-align:center;
+ margin-top:16px;
+ border-radius:13px;
+ padding:16px;
+ background:#087c73;
+ color:white;
+ font-size:17px;
+ font-weight:650;
+ cursor:pointer;
+}
+
 .upload input{display:none}
 #status{font-size:12px;color:#52736e;margin:20px 3px 10px}
 .note{display:block;color:#64748b;font-size:12px;line-height:1.6;margin:0 3px}
 </style>
 </head>
+
 <body>
+
 <header>
 <h1>Meine Pocketcards</h1>
 </header>
+
 <main>
-<input id="search" type="search" placeholder="Pocketcard suchen, z. B. COPD" aria-label="Pocketcards suchen">
+
+<input
+ id="search"
+ type="search"
+ placeholder="Pocketcard suchen, z. B. COPD"
+ aria-label="Pocketcards suchen"
+>
+
 <h2>Meine Kategorien</h2>
 <div id="categories"></div>
+
 <p id="no-results">Keine passende Pocketcard gefunden.</p>
+
 <section class="upload-area">
 <h2>PDF hinzufügen</h2>
+
 <label for="category">Kategorie für neue Pocketcards auswählen:</label>
+
 <select id="category">
 <option>Pneumologie</option>
 <option>Infektiologie</option>
@@ -70,19 +191,39 @@ h2{font-size:22px;margin:0 0 16px}
 <option>Intensivmedizin</option>
 <option>Andere</option>
 </select>
+
 <label class="upload">
 ＋ PDF hinzufügen
 <input id="file" type="file" accept="application/pdf,.pdf" multiple>
 </label>
+
 </section>
+
 <p id="status">App wird vorbereitet ...</p>
-<small class="note">Die PDFs werden lokal in diesem App-Speicher gesichert und nicht an GitHub gesendet. Originale in Dateien aufbewahren.</small>
+
+<small class="note">
+Die PDFs werden lokal in diesem App-Speicher gesichert und nicht an GitHub gesendet.
+Originale in Dateien aufbewahren.
+</small>
+
 </main>
+
 <script>
 "use strict";
+
 let db,documents=[];
+
 const $=id=>document.getElementById(id);
-const categoryNames=["Pneumologie","Infektiologie","Notfall","Kardiologie","Intensivmedizin","Andere"];
+
+const categoryNames=[
+ "Pneumologie",
+ "Infektiologie",
+ "Notfall",
+ "Kardiologie",
+ "Intensivmedizin",
+ "Andere"
+];
+
 const categoryIcons={
  Pneumologie:"≋",
  Infektiologie:"✚",
@@ -92,15 +233,22 @@ const categoryIcons={
  Andere:"▤",
  Favoriten:"★"
 };
+
 const expanded=new Set();
 
 function openDB(){
  return new Promise((resolve,reject)=>{
   const request=indexedDB.open("meine-klinik-local",1);
+
   request.onupgradeneeded=()=>{
-   if(!request.result.objectStoreNames.contains("pdfs"))
-    request.result.createObjectStore("pdfs",{keyPath:"id",autoIncrement:true});
+   if(!request.result.objectStoreNames.contains("pdfs")){
+    request.result.createObjectStore("pdfs",{
+     keyPath:"id",
+     autoIncrement:true
+    });
+   }
   };
+
   request.onsuccess=()=>resolve(request.result);
   request.onerror=()=>reject(request.error);
  });
@@ -111,6 +259,7 @@ function operation(mode,action){
   const tx=db.transaction("pdfs",mode);
   const request=action(tx.objectStore("pdfs"));
   let result;
+
   request.onsuccess=()=>{result=request.result};
   tx.oncomplete=()=>resolve(result);
   tx.onerror=()=>reject(tx.error);
@@ -131,12 +280,15 @@ function showPDF(d){
  try{
   const url=URL.createObjectURL(d.file);
   const tab=window.open(url,"_blank");
+
   if(!tab){
    URL.revokeObjectURL(url);
    alert("PDF konnte nicht geöffnet werden.");
    return;
   }
+
   setTimeout(()=>URL.revokeObjectURL(url),60000);
+
  }catch(error){
   alert("PDF konnte nicht geöffnet werden: "+error.message);
  }
@@ -189,6 +341,7 @@ function makeDocument(d){
 
  remove.onclick=async()=>{
   if(!confirm("Diese Pocketcard aus der App entfernen?"))return;
+
   try{
    await operation("readwrite",s=>s.delete(d.id));
    await refresh();
@@ -199,18 +352,21 @@ function makeDocument(d){
 
  actions.append(favorite,remove);
  row.append(open,actions);
+
  return row;
 }
 
 function render(){
  const query=$("search").value.trim().toLocaleLowerCase("de");
  const container=$("categories");
+
  container.replaceChildren();
 
  const names=["Favoriten",...categoryNames];
  let matches=0;
 
  for(const category of names){
+
   const all=documents.filter(d=>
    category==="Favoriten"?!!d.favorite:d.category===category
   );
@@ -221,6 +377,7 @@ function render(){
   );
 
   if(query&&!found.length)continue;
+
   matches+=found.length;
 
   const details=document.createElement("details");
@@ -229,6 +386,7 @@ function render(){
 
   details.addEventListener("toggle",()=>{
    if($("search").value.trim())return;
+
    if(details.open)expanded.add(category);
    else expanded.delete(category);
   });
@@ -246,6 +404,7 @@ function render(){
   const count=document.createElement("span");
   count.className="count";
   count.textContent=all.length?"("+all.length+")":"";
+
   title.append(count);
 
   const chevron=document.createElement("span");
@@ -278,10 +437,12 @@ $("search").addEventListener("input",render);
 $("file").addEventListener("change",async e=>{
  const files=Array.from(e.target.files);
  const category=$("category").value;
+
  if(!files.length)return;
 
  try{
   for(const file of files){
+
    if(file.type!=="application/pdf"&&!file.name.toLowerCase().endsWith(".pdf")){
     throw Error("Bitte nur PDF-Dateien auswählen.");
    }
@@ -296,8 +457,11 @@ $("file").addEventListener("change",async e=>{
 
   expanded.add(category);
   $("search").value="";
+
   await refresh();
+
   alert("Pocketcard lokal gespeichert.");
+
  }catch(error){
   alert("Speichern fehlgeschlagen: "+error.message);
  }
@@ -309,7 +473,9 @@ async function start(){
  try{
   db=await openDB();
   await refresh();
+
   $("status").textContent="Lokaler PDF-Speicher bereit.";
+
  }catch(error){
   $("status").textContent="Speicherfehler: "+error.message;
  }
@@ -325,5 +491,6 @@ async function start(){
 
 start();
 </script>
+
 </body>
 </html>
