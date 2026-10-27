@@ -43,6 +43,37 @@ padding:12px;background:#087c73;color:white}
 white-space:nowrap}
 #pdfFrame{width:100%;height:calc(100% - 65px);border:0}
 #status{font-size:12px;color:#52736e}
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 16px 0 24px;
+}
+
+.category-grid button {
+  width: 100%;
+  min-height: 78px;
+  padding: 20px;
+  text-align: left;
+  border: 0;
+  border-radius: 18px;
+  background: #f5f7f9;
+  color: #263344;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.category-grid button::after {
+  content: "›";
+  float: right;
+  color: #94a3b8;
+  font-size: 28px;
+}
+
+.category-grid button.active {
+  background: #e1f0eb;
+  color: #087c73;
+}
 </style>
 </head>
 <body>
@@ -65,7 +96,8 @@ white-space:nowrap}
 + PDF hinzufügen
 <input id="file" type="file" accept="application/pdf,.pdf" multiple>
 </label>
-<nav id="filters">
+<h2>Meine Kategorien</h2>
+<nav id="filters" class="category-grid">
 <button data-filter="Alle" class="active">Alle</button>
 <button data-filter="Favoriten">⭐ Favoriten</button>
 <button data-filter="Pneumologie">Pneumologie</button>
@@ -140,13 +172,13 @@ function render(){
   card.className="card";
   const name=document.createElement("strong");
   name.textContent=d.name;
+  name.style.cursor="pointer";
+  name.onclick=()=>showPDF(d);
+  name.setAttribute("role","button");
   const category=document.createElement("small");
   category.textContent=d.category;
   const actions=document.createElement("div");
   actions.className="actions";
-  const open=document.createElement("button");
-  open.textContent="📄 Öffnen";
-  open.onclick=()=>showPDF(d);
   const favorite=document.createElement("button");
   favorite.className="secondary";
   favorite.textContent=d.favorite?"★ Favorit":"☆ Favorit";
@@ -164,7 +196,7 @@ function render(){
     refresh();
    }
   };
-  actions.append(open,favorite,remove);
+  actions.append(favorite,remove);
   card.append(name,category,actions);
   container.append(card);
  }
