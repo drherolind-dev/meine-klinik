@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meine Klinik</title>
+<style>
+body {
+  margin: 0;
+  background: #f2f7f6;
+  font-family: -apple-system, sans-serif;
+  color: #173d39;
+}
+header {
+  background: #087c73;
+  color: white;
+  padding: 36px 22px;
+  border-radius: 0 0 25px 25px;
+}
+h1 { margin: 0; font-size: 28px; }
+main { padding: 22px; }
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid #d1dddd;
+  border-radius: 12px;
+  font-size: 16px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  margin-top: 14px;
+  box-shadow: 0 2px 8px #0000000a;
+}
+small { color: #64748b; }
+</style>
+</head>
+<body>
+<header>
+<h1>Meine Klinik</h1>
+<p>SOPs & Pocketcards</p>
+</header>
+<main>
+<input id="suche" placeholder="SOP suchen..." oninput="suchen()">
+<h3>Meine Kategorien</h3>
+<div class="card" data-name="pneumologie copd">
+<strong>🫁 Pneumologie</strong>
+<p> COPD – Pocketcard </p>
+<small>PDF wird später hinzugefügt</small>
+</div>
+<div class="card" data-name="infektiologie atemwegsinfektion">
+<strong>🦠 Infektiologie</strong>
+<p>Atemwegsinfektion 2026/27</p>
+<small>PDF wird später hinzugefügt</small>
+</div>
+</main>
+<script>
+function suchen() {
+  const q = document.getElementById('suche').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c => {
+    c.style.display = c.dataset.name.includes(q) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
