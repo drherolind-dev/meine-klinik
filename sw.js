@@ -1,4 +1,4 @@
-const CACHE = "meine-klinik-v1";
+const CACHE = "meine-klinik-v2";
 const APP = "./index.html";
 
 self.addEventListener("install", event => {
