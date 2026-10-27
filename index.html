@@ -52,10 +52,7 @@ white-space:nowrap}
 </header>
 <main>
 <input id="search" type="search" placeholder="SOP suchen ...">
-<label class="upload">
-+ PDF hinzufügen
-<input id="file" type="file" accept="application/pdf,.pdf" multiple>
-</label>
+<label for="category">Kategorie für das neue PDF auswählen:</label>
 <select id="category">
 <option>Pneumologie</option>
 <option>Infektiologie</option>
@@ -64,6 +61,10 @@ white-space:nowrap}
 <option>Intensivmedizin</option>
 <option>Andere</option>
 </select>
+<label class="upload">
++ PDF hinzufügen
+<input id="file" type="file" accept="application/pdf,.pdf" multiple>
+</label>
 <nav id="filters">
 <button data-filter="Alle" class="active">Alle</button>
 <button data-filter="Favoriten">⭐ Favoriten</button>
@@ -172,8 +173,9 @@ function showPDF(d){
  if(currentUrl)URL.revokeObjectURL(currentUrl);
  currentUrl=URL.createObjectURL(d.file);
  $("pdfTitle").textContent=d.name;
- $("pdfFrame").src=currentUrl;
- $("viewer").style.display="block";
+ const pdfTab = window.open(currentUrl, "_blank");
+
+ $("viewer").style.display="none";
 }
 $("close").onclick=()=>{
  $("pdfFrame").src="about:blank";
