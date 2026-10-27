@@ -1,89 +1,67 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#087c73">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Meine Klinik</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f2f7f6;color:#173d39;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif}
-header{background:#087c73;color:white;
-padding:35px 22px 27px;border-radius:0 0 26px 26px}
-h1{margin:0 0 5px;font-size:29px}
-header p{margin:0;opacity:.9}
-main{padding:20px;max-width:700px;margin:auto}
-input[type=search],select{width:100%;padding:15px;
-border:1px solid #d1dddd;border-radius:12px;
-font-size:16px;background:white}
-h2{font-size:19px;margin-top:23px}
-button,.upload{border:0;border-radius:12px;padding:13px;
-font-size:15px;background:#087c73;color:white;
-font-weight:600;cursor:pointer}
-.upload{display:block;text-align:center;margin:16px 0}
+body{margin:0;background:#f2f7f6;color:#173d39;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+header{background:#087c73;color:white;padding:40px 22px 28px;border-radius:0 0 28px 28px}
+h1{margin:0 0 5px;font-size:30px}
+header p{margin:0;opacity:.9;font-size:17px}
+main{padding:22px 18px 35px;max-width:700px;margin:auto}
+#search,select{width:100%;padding:16px;border:1px solid #d1dddd;border-radius:15px;font-size:17px;background:white;color:#173d39}
+#search{margin-bottom:24px}
+h2{font-size:22px;margin:0 0 16px}
+.category{background:#f8fafb;border-radius:19px;margin:12px 0;overflow:hidden}
+.category summary{list-style:none;display:flex;align-items:center;gap:12px;min-height:85px;padding:20px 18px;cursor:pointer;font-size:20px;font-weight:650;color:#263344}
+.category summary::-webkit-details-marker{display:none}
+.category[open] summary{background:#e1f0eb;color:#087c73}
+.category-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;background:#e1f0eb;color:#087c73;flex-shrink:0;font-size:21px}
+.category[open] .category-icon{background:white}
+.category-title{flex:1;min-width:0}
+.count{font-size:13px;font-weight:500;color:#718096;margin-left:5px}
+.chevron{font-size:28px;color:#94a3b8;line-height:1}
+.category[open] .chevron{transform:rotate(90deg)}
+.category-content{padding:8px 14px 14px;background:white}
+.doc{padding:14px 5px;border-bottom:1px solid #edf1f2}
+.doc:last-child{border-bottom:0}
+.doc-open{width:100%;display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0 8px;text-align:left;color:#173d39;font-size:17px;font-weight:600;cursor:pointer}
+.doc-open span:first-child{font-size:20px}
+.doc-name{flex:1;overflow-wrap:anywhere}
+.arrow{color:#94a3b8;font-size:24px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin:5px 0 0 32px}
+.actions button{border:0;border-radius:10px;padding:9px 12px;font-size:14px;font-weight:600}
+.favorite{background:#e2f0ed;color:#075c55}
+.danger{background:#fff0ed;color:#9d3425}
+.empty{color:#64748b;margin:10px 5px 5px;font-size:15px}
+#no-results{display:none;color:#64748b;margin:18px 0}
+.upload-area{margin-top:32px;padding:21px 18px;background:white;border-radius:19px}
+.upload-area h2{margin-bottom:14px}
+.upload-area label:not(.upload){display:block;margin-bottom:9px;font-size:15px}
+.upload{display:block;text-align:center;margin-top:16px;border-radius:13px;padding:16px;background:#087c73;color:white;font-size:17px;font-weight:650;cursor:pointer}
 .upload input{display:none}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-nav button{background:#e0efeb;color:#075c55}
-nav button.active{background:#087c73;color:white}
-.card{background:white;padding:17px;border-radius:15px;
-margin:11px 0;box-shadow:0 2px 8px #0000000b}
-.card strong{display:block;margin-bottom:6px}
-small{color:#64748b}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.actions button{padding:10px}
-.actions .secondary{background:#e2f0ed;color:#075c55}
-.actions .danger{background:#fff0ed;color:#9d3425}
-#viewer{display:none;position:fixed;inset:0;
-background:white;z-index:20}
-#viewerbar{display:flex;align-items:center;gap:10px;
-padding:12px;background:#087c73;color:white}
-#viewerbar span{flex:1;overflow:hidden;text-overflow:ellipsis;
-white-space:nowrap}
-#pdfFrame{width:100%;height:calc(100% - 65px);border:0}
-#status{font-size:12px;color:#52736e}
-.category-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin: 16px 0 24px;
-}
-
-.category-grid button {
-  width: 100%;
-  min-height: 78px;
-  padding: 20px;
-  text-align: left;
-  border: 0;
-  border-radius: 18px;
-  background: #f5f7f9;
-  color: #263344;
-  font-size: 19px;
-  font-weight: 600;
-}
-
-.category-grid button::after {
-  content: "›";
-  float: right;
-  color: #94a3b8;
-  font-size: 28px;
-}
-
-.category-grid button.active {
-  background: #e1f0eb;
-  color: #087c73;
-}
+#status{font-size:12px;color:#52736e;margin:20px 3px 10px}
+.note{display:block;color:#64748b;font-size:12px;line-height:1.6;margin:0 3px}
 </style>
 </head>
 <body>
 <header>
 <h1>🩺 Meine Klinik</h1>
-<p>SOPs & Pocketcards</p>
+<p>SOPs &amp; Pocketcards</p>
 </header>
 <main>
-<input id="search" type="search" placeholder="SOP suchen ...">
-<label for="category">Kategorie für das neue PDF auswählen:</label>
+<input id="search" type="search" placeholder="Pocketcard suchen, z. B. COPD" aria-label="Pocketcards suchen">
+<h2>Meine Kategorien</h2>
+<div id="categories"></div>
+<p id="no-results">Keine passende Pocketcard gefunden.</p>
+<section class="upload-area">
+<h2>PDF hinzufügen</h2>
+<label for="category">Kategorie für neue Pocketcards auswählen:</label>
 <select id="category">
 <option>Pneumologie</option>
 <option>Infektiologie</option>
@@ -93,159 +71,240 @@ white-space:nowrap}
 <option>Andere</option>
 </select>
 <label class="upload">
-+ PDF hinzufügen
+＋ PDF hinzufügen
 <input id="file" type="file" accept="application/pdf,.pdf" multiple>
 </label>
-<h2>Meine Kategorien</h2>
-<nav id="filters" class="category-grid">
-<button data-filter="Alle" class="active">Alle</button>
-<button data-filter="Favoriten">⭐ Favoriten</button>
-<button data-filter="Pneumologie">Pneumologie</button>
-<button data-filter="Infektiologie">Infektiologie</button>
-<button data-filter="Notfall">Notfall</button>
-<button data-filter="Kardiologie">Kardiologie</button>
-<button data-filter="Intensivmedizin">Intensivmedizin</button>
-<button data-filter="Andere">Andere</button>
-</nav>
-<h2>Meine Dokumente</h2>
-<div id="documents"></div>
-<p id="status">App wird vorbereitet ...</p>
-<small>Die PDFs werden lokal in diesem App-Speicher
-gesichert und nicht an GitHub gesendet.
-Originale in Dateien aufbewahren.</small>
-</main>
-<section id="viewer">
-<div id="viewerbar">
-<button id="close">← Zurück</button>
-<span id="pdfTitle"></span>
-</div>
-<iframe id="pdfFrame" title="PDF-Vorschau"></iframe>
 </section>
+<p id="status">App wird vorbereitet ...</p>
+<small class="note">Die PDFs werden lokal in diesem App-Speicher gesichert und nicht an GitHub gesendet. Originale in Dateien aufbewahren.</small>
+</main>
 <script>
-let db, documents=[], filter="Alle", currentUrl=null;
+"use strict";
+let db,documents=[];
 const $=id=>document.getElementById(id);
+const categoryNames=["Pneumologie","Infektiologie","Notfall","Kardiologie","Intensivmedizin","Andere"];
+const categoryIcons={
+ Pneumologie:"≋",
+ Infektiologie:"✚",
+ Notfall:"♡",
+ Kardiologie:"♥",
+ Intensivmedizin:"✦",
+ Andere:"▤",
+ Favoriten:"★"
+};
+const expanded=new Set();
 
 function openDB(){
  return new Promise((resolve,reject)=>{
   const request=indexedDB.open("meine-klinik-local",1);
   request.onupgradeneeded=()=>{
-   request.result.createObjectStore("pdfs",
-    {keyPath:"id",autoIncrement:true});
+   if(!request.result.objectStoreNames.contains("pdfs"))
+    request.result.createObjectStore("pdfs",{keyPath:"id",autoIncrement:true});
   };
   request.onsuccess=()=>resolve(request.result);
   request.onerror=()=>reject(request.error);
  });
 }
+
 function operation(mode,action){
  return new Promise((resolve,reject)=>{
   const tx=db.transaction("pdfs",mode);
-  const store=tx.objectStore("pdfs");
+  const request=action(tx.objectStore("pdfs"));
   let result;
-  const request=action(store);
   request.onsuccess=()=>{result=request.result};
   tx.oncomplete=()=>resolve(result);
   tx.onerror=()=>reject(tx.error);
   tx.onabort=()=>reject(tx.error);
  });
 }
+
 async function refresh(){
  documents=await operation("readonly",s=>s.getAll());
  render();
 }
-function render(){
- const query=$("search").value.trim().toLowerCase();
- const container=$("documents");
- container.replaceChildren();
- const list=documents.filter(d=>
-  (filter==="Alle"||
-   filter==="Favoriten"&&d.favorite||
-   d.category===filter)&&
-  d.name.toLowerCase().includes(query)
- );
- if(!list.length){
-  const msg=document.createElement("p");
-  msg.textContent="Noch keine passenden PDFs vorhanden.";
-  container.append(msg);
+
+function displayName(filename){
+ return filename.replace(/\.pdf$/i,"").replace(/_/g," ");
+}
+
+function showPDF(d){
+ try{
+  const url=URL.createObjectURL(d.file);
+  const tab=window.open(url,"_blank");
+  if(!tab){
+   URL.revokeObjectURL(url);
+   alert("PDF konnte nicht geöffnet werden.");
+   return;
+  }
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+ }catch(error){
+  alert("PDF konnte nicht geöffnet werden: "+error.message);
  }
- for(const d of list){
-  const card=document.createElement("div");
-  card.className="card";
-  const name=document.createElement("strong");
-  name.textContent=d.name;
-  name.style.cursor="pointer";
-  name.onclick=()=>showPDF(d);
-  name.setAttribute("role","button");
-  const category=document.createElement("small");
-  category.textContent=d.category;
-  const actions=document.createElement("div");
-  actions.className="actions";
-  const favorite=document.createElement("button");
-  favorite.className="secondary";
-  favorite.textContent=d.favorite?"★ Favorit":"☆ Favorit";
-  favorite.onclick=async()=>{
+}
+
+function makeDocument(d){
+ const row=document.createElement("div");
+ row.className="doc";
+
+ const open=document.createElement("button");
+ open.type="button";
+ open.className="doc-open";
+
+ const icon=document.createElement("span");
+ icon.textContent="📄";
+
+ const name=document.createElement("span");
+ name.className="doc-name";
+ name.textContent=displayName(d.name);
+
+ const arrow=document.createElement("span");
+ arrow.className="arrow";
+ arrow.textContent="›";
+
+ open.append(icon,name,arrow);
+ open.onclick=()=>showPDF(d);
+
+ const actions=document.createElement("div");
+ actions.className="actions";
+
+ const favorite=document.createElement("button");
+ favorite.type="button";
+ favorite.className="favorite";
+ favorite.textContent=d.favorite?"★ Favorit":"☆ Favorit";
+
+ favorite.onclick=async()=>{
+  try{
    d.favorite=!d.favorite;
    await operation("readwrite",s=>s.put(d));
-   refresh();
-  };
-  const remove=document.createElement("button");
-  remove.className="danger";
-  remove.textContent="Löschen";
-  remove.onclick=async()=>{
-   if(confirm("PDF aus dieser App entfernen?")){
-    await operation("readwrite",s=>s.delete(d.id));
-    refresh();
-   }
-  };
-  actions.append(favorite,remove);
-  card.append(name,category,actions);
-  container.append(card);
- }
-}
-function showPDF(d){
- if(currentUrl)URL.revokeObjectURL(currentUrl);
- currentUrl=URL.createObjectURL(d.file);
- $("pdfTitle").textContent=d.name;
- const pdfTab = window.open(currentUrl, "_blank");
+   await refresh();
+  }catch(error){
+   alert("Änderung fehlgeschlagen: "+error.message);
+  }
+ };
 
- $("viewer").style.display="none";
+ const remove=document.createElement("button");
+ remove.type="button";
+ remove.className="danger";
+ remove.textContent="Löschen";
+
+ remove.onclick=async()=>{
+  if(!confirm("Diese Pocketcard aus der App entfernen?"))return;
+  try{
+   await operation("readwrite",s=>s.delete(d.id));
+   await refresh();
+  }catch(error){
+   alert("Löschen fehlgeschlagen: "+error.message);
+  }
+ };
+
+ actions.append(favorite,remove);
+ row.append(open,actions);
+ return row;
 }
-$("close").onclick=()=>{
- $("pdfFrame").src="about:blank";
- $("viewer").style.display="none";
- if(currentUrl)URL.revokeObjectURL(currentUrl);
- currentUrl=null;
-};
-$("search").oninput=render;
-$("filters").onclick=e=>{
- const button=e.target.closest("button[data-filter]");
- if(!button)return;
- filter=button.dataset.filter;
- document.querySelectorAll("#filters button").forEach(b=>
-  b.classList.toggle("active",b===button));
- render();
-};
-$("file").onchange=async e=>{
+
+function render(){
+ const query=$("search").value.trim().toLocaleLowerCase("de");
+ const container=$("categories");
+ container.replaceChildren();
+
+ const names=["Favoriten",...categoryNames];
+ let matches=0;
+
+ for(const category of names){
+  const all=documents.filter(d=>
+   category==="Favoriten"?!!d.favorite:d.category===category
+  );
+
+  const found=all.filter(d=>
+   displayName(d.name).toLocaleLowerCase("de").includes(query)||
+   (query&&d.category.toLocaleLowerCase("de").includes(query))
+  );
+
+  if(query&&!found.length)continue;
+  matches+=found.length;
+
+  const details=document.createElement("details");
+  details.className="category";
+  details.open=query?true:expanded.has(category);
+
+  details.addEventListener("toggle",()=>{
+   if($("search").value.trim())return;
+   if(details.open)expanded.add(category);
+   else expanded.delete(category);
+  });
+
+  const summary=document.createElement("summary");
+
+  const icon=document.createElement("span");
+  icon.className="category-icon";
+  icon.textContent=categoryIcons[category];
+
+  const title=document.createElement("span");
+  title.className="category-title";
+  title.textContent=category;
+
+  const count=document.createElement("span");
+  count.className="count";
+  count.textContent=all.length?"("+all.length+")":"";
+  title.append(count);
+
+  const chevron=document.createElement("span");
+  chevron.className="chevron";
+  chevron.textContent="›";
+
+  summary.append(icon,title,chevron);
+
+  const content=document.createElement("div");
+  content.className="category-content";
+
+  if(!found.length){
+   const empty=document.createElement("p");
+   empty.className="empty";
+   empty.textContent="Noch keine Pocketcards vorhanden.";
+   content.append(empty);
+  }else{
+   found.forEach(d=>content.append(makeDocument(d)));
+  }
+
+  details.append(summary,content);
+  container.append(details);
+ }
+
+ $("no-results").style.display=query&&!matches?"block":"none";
+}
+
+$("search").addEventListener("input",render);
+
+$("file").addEventListener("change",async e=>{
  const files=Array.from(e.target.files);
+ const category=$("category").value;
+ if(!files.length)return;
+
  try{
   for(const file of files){
-   if(file.type!=="application/pdf" &&
-      !file.name.toLowerCase().endsWith(".pdf")){
-    throw Error("Bitte nur PDF-Dateien wählen.");
+   if(file.type!=="application/pdf"&&!file.name.toLowerCase().endsWith(".pdf")){
+    throw Error("Bitte nur PDF-Dateien auswählen.");
    }
+
    await operation("readwrite",s=>s.add({
     name:file.name,
-    category:$("category").value,
+    category:category,
     favorite:false,
     file:file
    }));
   }
+
+  expanded.add(category);
+  $("search").value="";
   await refresh();
-  alert("PDF lokal gespeichert.");
+  alert("Pocketcard lokal gespeichert.");
  }catch(error){
   alert("Speichern fehlgeschlagen: "+error.message);
  }
+
  e.target.value="";
-};
+});
+
 async function start(){
  try{
   db=await openDB();
@@ -254,6 +313,7 @@ async function start(){
  }catch(error){
   $("status").textContent="Speicherfehler: "+error.message;
  }
+
  if("serviceWorker" in navigator){
   try{
    await navigator.serviceWorker.register("./sw.js");
@@ -262,6 +322,7 @@ async function start(){
   }
  }
 }
+
 start();
 </script>
 </body>
