@@ -2,67 +2,233 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#087c73">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>Meine Klinik</title>
 <style>
-body {
-  margin: 0;
-  background: #f2f7f6;
-  font-family: -apple-system, sans-serif;
-  color: #173d39;
-}
-header {
-  background: #087c73;
-  color: white;
-  padding: 36px 22px;
-  border-radius: 0 0 25px 25px;
-}
-h1 { margin: 0; font-size: 28px; }
-main { padding: 22px; }
-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 16px;
-  border: 1px solid #d1dddd;
-  border-radius: 12px;
-  font-size: 16px;
-}
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
-  margin-top: 14px;
-  box-shadow: 0 2px 8px #0000000a;
-}
-small { color: #64748b; }
+*{box-sizing:border-box}
+body{margin:0;background:#f2f7f6;color:#173d39;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+header{background:#087c73;color:white;
+padding:35px 22px 27px;border-radius:0 0 26px 26px}
+h1{margin:0 0 5px;font-size:29px}
+header p{margin:0;opacity:.9}
+main{padding:20px;max-width:700px;margin:auto}
+input[type=search],select{width:100%;padding:15px;
+border:1px solid #d1dddd;border-radius:12px;
+font-size:16px;background:white}
+h2{font-size:19px;margin-top:23px}
+button,.upload{border:0;border-radius:12px;padding:13px;
+font-size:15px;background:#087c73;color:white;
+font-weight:600;cursor:pointer}
+.upload{display:block;text-align:center;margin:16px 0}
+.upload input{display:none}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+nav button{background:#e0efeb;color:#075c55}
+nav button.active{background:#087c73;color:white}
+.card{background:white;padding:17px;border-radius:15px;
+margin:11px 0;box-shadow:0 2px 8px #0000000b}
+.card strong{display:block;margin-bottom:6px}
+small{color:#64748b}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.actions button{padding:10px}
+.actions .secondary{background:#e2f0ed;color:#075c55}
+.actions .danger{background:#fff0ed;color:#9d3425}
+#viewer{display:none;position:fixed;inset:0;
+background:white;z-index:20}
+#viewerbar{display:flex;align-items:center;gap:10px;
+padding:12px;background:#087c73;color:white}
+#viewerbar span{flex:1;overflow:hidden;text-overflow:ellipsis;
+white-space:nowrap}
+#pdfFrame{width:100%;height:calc(100% - 65px);border:0}
+#status{font-size:12px;color:#52736e}
 </style>
 </head>
 <body>
 <header>
-<h1>Meine Klinik</h1>
+<h1>🩺 Meine Klinik</h1>
 <p>SOPs & Pocketcards</p>
 </header>
 <main>
-<input id="suche" placeholder="SOP suchen..." oninput="suchen()">
-<h3>Meine Kategorien</h3>
-<div class="card" data-name="pneumologie copd">
-<strong>🫁 Pneumologie</strong>
-<p> COPD – Pocketcard </p>
-<small>PDF wird später hinzugefügt</small>
-</div>
-<div class="card" data-name="infektiologie atemwegsinfektion">
-<strong>🦠 Infektiologie</strong>
-<p>Atemwegsinfektion 2026/27</p>
-<small>PDF wird später hinzugefügt</small>
-</div>
+<input id="search" type="search" placeholder="SOP suchen ...">
+<label class="upload">
++ PDF hinzufügen
+<input id="file" type="file" accept="application/pdf,.pdf" multiple>
+</label>
+<select id="category">
+<option>Pneumologie</option>
+<option>Infektiologie</option>
+<option>Notfall</option>
+<option>Kardiologie</option>
+<option>Intensivmedizin</option>
+<option>Andere</option>
+</select>
+<nav id="filters">
+<button data-filter="Alle" class="active">Alle</button>
+<button data-filter="Favoriten">⭐ Favoriten</button>
+<button data-filter="Pneumologie">Pneumologie</button>
+<button data-filter="Infektiologie">Infektiologie</button>
+<button data-filter="Notfall">Notfall</button>
+<button data-filter="Kardiologie">Kardiologie</button>
+<button data-filter="Intensivmedizin">Intensivmedizin</button>
+<button data-filter="Andere">Andere</button>
+</nav>
+<h2>Meine Dokumente</h2>
+<div id="documents"></div>
+<p id="status">App wird vorbereitet ...</p>
+<small>Die PDFs werden lokal in diesem App-Speicher
+gesichert und nicht an GitHub gesendet.
+Originale in Dateien aufbewahren.</small>
 </main>
+<section id="viewer">
+<div id="viewerbar">
+<button id="close">← Zurück</button>
+<span id="pdfTitle"></span>
+</div>
+<iframe id="pdfFrame" title="PDF-Vorschau"></iframe>
+</section>
 <script>
-function suchen() {
-  const q = document.getElementById('suche').value.toLowerCase();
-  document.querySelectorAll('.card').forEach(c => {
-    c.style.display = c.dataset.name.includes(q) ? '' : 'none';
-  });
+let db, documents=[], filter="Alle", currentUrl=null;
+const $=id=>document.getElementById(id);
+
+function openDB(){
+ return new Promise((resolve,reject)=>{
+  const request=indexedDB.open("meine-klinik-local",1);
+  request.onupgradeneeded=()=>{
+   request.result.createObjectStore("pdfs",
+    {keyPath:"id",autoIncrement:true});
+  };
+  request.onsuccess=()=>resolve(request.result);
+  request.onerror=()=>reject(request.error);
+ });
 }
+function operation(mode,action){
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction("pdfs",mode);
+  const store=tx.objectStore("pdfs");
+  let result;
+  const request=action(store);
+  request.onsuccess=()=>{result=request.result};
+  tx.oncomplete=()=>resolve(result);
+  tx.onerror=()=>reject(tx.error);
+  tx.onabort=()=>reject(tx.error);
+ });
+}
+async function refresh(){
+ documents=await operation("readonly",s=>s.getAll());
+ render();
+}
+function render(){
+ const query=$("search").value.trim().toLowerCase();
+ const container=$("documents");
+ container.replaceChildren();
+ const list=documents.filter(d=>
+  (filter==="Alle"||
+   filter==="Favoriten"&&d.favorite||
+   d.category===filter)&&
+  d.name.toLowerCase().includes(query)
+ );
+ if(!list.length){
+  const msg=document.createElement("p");
+  msg.textContent="Noch keine passenden PDFs vorhanden.";
+  container.append(msg);
+ }
+ for(const d of list){
+  const card=document.createElement("div");
+  card.className="card";
+  const name=document.createElement("strong");
+  name.textContent=d.name;
+  const category=document.createElement("small");
+  category.textContent=d.category;
+  const actions=document.createElement("div");
+  actions.className="actions";
+  const open=document.createElement("button");
+  open.textContent="📄 Öffnen";
+  open.onclick=()=>showPDF(d);
+  const favorite=document.createElement("button");
+  favorite.className="secondary";
+  favorite.textContent=d.favorite?"★ Favorit":"☆ Favorit";
+  favorite.onclick=async()=>{
+   d.favorite=!d.favorite;
+   await operation("readwrite",s=>s.put(d));
+   refresh();
+  };
+  const remove=document.createElement("button");
+  remove.className="danger";
+  remove.textContent="Löschen";
+  remove.onclick=async()=>{
+   if(confirm("PDF aus dieser App entfernen?")){
+    await operation("readwrite",s=>s.delete(d.id));
+    refresh();
+   }
+  };
+  actions.append(open,favorite,remove);
+  card.append(name,category,actions);
+  container.append(card);
+ }
+}
+function showPDF(d){
+ if(currentUrl)URL.revokeObjectURL(currentUrl);
+ currentUrl=URL.createObjectURL(d.file);
+ $("pdfTitle").textContent=d.name;
+ $("pdfFrame").src=currentUrl;
+ $("viewer").style.display="block";
+}
+$("close").onclick=()=>{
+ $("pdfFrame").src="about:blank";
+ $("viewer").style.display="none";
+ if(currentUrl)URL.revokeObjectURL(currentUrl);
+ currentUrl=null;
+};
+$("search").oninput=render;
+$("filters").onclick=e=>{
+ const button=e.target.closest("button[data-filter]");
+ if(!button)return;
+ filter=button.dataset.filter;
+ document.querySelectorAll("#filters button").forEach(b=>
+  b.classList.toggle("active",b===button));
+ render();
+};
+$("file").onchange=async e=>{
+ const files=Array.from(e.target.files);
+ try{
+  for(const file of files){
+   if(file.type!=="application/pdf" &&
+      !file.name.toLowerCase().endsWith(".pdf")){
+    throw Error("Bitte nur PDF-Dateien wählen.");
+   }
+   await operation("readwrite",s=>s.add({
+    name:file.name,
+    category:$("category").value,
+    favorite:false,
+    file:file
+   }));
+  }
+  await refresh();
+  alert("PDF lokal gespeichert.");
+ }catch(error){
+  alert("Speichern fehlgeschlagen: "+error.message);
+ }
+ e.target.value="";
+};
+async function start(){
+ try{
+  db=await openDB();
+  await refresh();
+  $("status").textContent="Lokaler PDF-Speicher bereit.";
+ }catch(error){
+  $("status").textContent="Speicherfehler: "+error.message;
+ }
+ if("serviceWorker" in navigator){
+  try{
+   await navigator.serviceWorker.register("./sw.js");
+  }catch(error){
+   $("status").textContent+=" Offline-Einrichtung fehlgeschlagen.";
+  }
+ }
+}
+start();
 </script>
 </body>
 </html>
