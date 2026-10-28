@@ -11,7 +11,9 @@
 <link rel="apple-touch-icon" href="./Mein%20Pocket%20Card%20Symbol.png">
 
 <style>
-*{box-sizing:border-box}
+*{
+ box-sizing:border-box;
+}
 
 body{
  margin:0;
@@ -59,7 +61,7 @@ h2{
  display:flex;
  align-items:center;
  gap:12px;
- margin-bottom:12px;
+ margin-bottom:18px;
 }
 
 .hero-icon{
@@ -89,7 +91,6 @@ h2{
 .hero-search{
  display:flex;
  gap:8px;
- margin-top:16px;
 }
 
 #search{
@@ -116,37 +117,6 @@ h2{
  border-radius:13px;
  padding:0 14px;
  font-size:20px;
- cursor:pointer;
-}
-
-.hero-hint{
- margin:12px 2px 0;
- font-size:13px;
- color:#64748b;
- line-height:1.6;
-}
-
-.hero-status{
- margin-top:14px;
- color:#087c73;
- font-size:14px;
- font-weight:600;
-}
-
-.hero-chips{
- display:flex;
- flex-wrap:wrap;
- gap:8px;
- margin-top:15px;
-}
-
-.hero-chip{
- border:0;
- border-radius:20px;
- padding:9px 12px;
- background:#e1f0eb;
- color:#075c55;
- font-size:13px;
  cursor:pointer;
 }
 
@@ -370,10 +340,15 @@ select{
 
 <main>
 
+<!-- MY HERO: NUR TITEL UND SUCHFELD -->
+
 <section class="hero" aria-labelledby="hero-title">
 
  <div class="hero-top">
-  <div class="hero-icon" aria-hidden="true">🩺</div>
+
+  <div class="hero-icon" aria-hidden="true">
+   🩺
+  </div>
 
   <div>
    <h2 id="hero-title">My Hero</h2>
@@ -381,6 +356,7 @@ select{
     Dein intelligenter Pocketcard-Suchassistent
    </p>
   </div>
+
  </div>
 
  <div class="hero-search">
@@ -397,30 +373,10 @@ select{
    id="clear-search"
    type="button"
    aria-label="Suche löschen"
-  >×</button>
+  >
+   ×
+  </button>
 
- </div>
-
- <p class="hero-hint">
-  Suche nach Diagnosen, Symptomen oder
-  medizinischen Begriffen. My Hero erkennt
-  auch viele verwandte Suchbegriffe.
- </p>
-
- <div class="hero-chips">
-  <button class="hero-chip" data-query="Atemnot">Atemnot</button>
-  <button class="hero-chip" data-query="Brustschmerz">Brustschmerz</button>
-  <button class="hero-chip" data-query="Infektion">Infektion</button>
-  <button class="hero-chip" data-query="Blutverdünnung">Blutverdünnung</button>
- </div>
-
- <div
-  id="hero-status"
-  class="hero-status"
-  role="status"
-  aria-live="polite"
- >
-  My Hero ist bereit.
  </div>
 
 </section>
@@ -430,8 +386,7 @@ select{
 <div id="categories"></div>
 
 <p id="no-results">
- My Hero hat keine passende Pocketcard gefunden.
- Versuche einen anderen Suchbegriff.
+ Keine passende Pocketcard gefunden.
 </p>
 
 <section class="upload-area">
@@ -460,6 +415,7 @@ select{
    accept="application/pdf,.pdf"
    multiple
   >
+
  </label>
 
 </section>
@@ -509,15 +465,11 @@ const expanded=new Set();
 /*
  MY HERO – MEDIZINISCHE SUCHBEGRIFFE
 
- Jede Gruppe enthält Begriffe, die thematisch
- zusammengehören.
+ Diese Gruppen helfen bei der Suche
+ nach thematisch verwandten Begriffen.
 
- Beispiel:
- "Atemnot" findet auch Pocketcards, deren
- Dateiname "Dyspnoe" enthält.
-
- Die Zuordnung bedeutet nicht, dass alle
- Begriffe medizinisch gleichbedeutend sind.
+ Die Begriffe sind nicht unbedingt
+ medizinisch gleichbedeutend.
 */
 
 const medicalGroups=[
@@ -692,11 +644,7 @@ const medicalGroups=[
 
 ];
 
-/*
- Text normalisieren:
- Gross-/Kleinschreibung, Umlaute,
- Sonderzeichen und Leerzeichen.
-*/
+/* TEXT NORMALISIEREN */
 
 function normalize(text){
 
@@ -712,11 +660,6 @@ function normalize(text){
 
 }
 
-/*
- Sucht nach einem Begriff als eigenständigem
- Wort oder als zusammenhängender Wortfolge.
-*/
-
 function containsTerm(text,term){
 
  if(!term)return false;
@@ -725,9 +668,7 @@ function containsTerm(text,term){
 
 }
 
-/*
- Ermittelt verwandte Begriffe.
-*/
+/* VERWANDTE SUCHBEGRIFFE */
 
 function relatedTerms(query){
 
@@ -746,7 +687,11 @@ function relatedTerms(query){
   );
 
   if(matching){
-   normalized.forEach(term=>terms.add(term));
+
+   normalized.forEach(term=>{
+    terms.add(term);
+   });
+
   }
 
  }
@@ -755,12 +700,7 @@ function relatedTerms(query){
 
 }
 
-/*
- Berechnet die Relevanz einer Pocketcard.
-
- Direkte Treffer im Dateinamen werden
- stärker bewertet als verwandte Begriffe.
-*/
+/* RELEVANZ BERECHNEN */
 
 function searchScore(document,query){
 
@@ -773,12 +713,19 @@ function searchScore(document,query){
 
  let score=0;
 
- if(name===q)score+=100;
+ if(name===q){
+  score+=100;
+ }
 
- if(containsTerm(name,q))score+=80;
- else if(name.includes(q))score+=45;
+ if(containsTerm(name,q)){
+  score+=80;
+ }else if(name.includes(q)){
+  score+=45;
+ }
 
- if(containsTerm(category,q))score+=25;
+ if(containsTerm(category,q)){
+  score+=25;
+ }
 
  const terms=relatedTerms(q);
 
@@ -787,17 +734,16 @@ function searchScore(document,query){
   if(term===q||term.length<3)continue;
 
   if(containsTerm(name,term)){
+
    score=Math.max(score,40);
+
   }else if(name.includes(term)){
+
    score=Math.max(score,15);
+
   }
 
  }
-
- /*
- Bei mehreren Suchwörtern:
- zusätzliche Treffer berücksichtigen.
- */
 
  const words=q.split(" ").filter(w=>w.length>=3);
 
@@ -815,13 +761,22 @@ function searchScore(document,query){
 
 }
 
-/* INDEXEDDB – BESTEHENDER PDF-SPEICHER */
+/*
+ LOKALER PDF-SPEICHER
+
+ Wichtig:
+ Datenbankname und Speicherstruktur
+ bleiben unverändert.
+*/
 
 function openDB(){
 
  return new Promise((resolve,reject)=>{
 
-  const request=indexedDB.open("meine-klinik-local",1);
+  const request=indexedDB.open(
+   "meine-klinik-local",
+   1
+  );
 
   request.onupgradeneeded=()=>{
 
@@ -836,8 +791,13 @@ function openDB(){
 
   };
 
-  request.onsuccess=()=>resolve(request.result);
-  request.onerror=()=>reject(request.error);
+  request.onsuccess=()=>{
+   resolve(request.result);
+  };
+
+  request.onerror=()=>{
+   reject(request.error);
+  };
 
  });
 
@@ -856,9 +816,17 @@ function operation(mode,action){
    result=request.result;
   };
 
-  tx.oncomplete=()=>resolve(result);
-  tx.onerror=()=>reject(tx.error);
-  tx.onabort=()=>reject(tx.error);
+  tx.oncomplete=()=>{
+   resolve(result);
+  };
+
+  tx.onerror=()=>{
+   reject(tx.error);
+  };
+
+  tx.onabort=()=>{
+   reject(tx.error);
+  };
 
  });
 
@@ -890,13 +858,19 @@ function showPDF(d){
  try{
 
   const url=URL.createObjectURL(d.file);
-  const tab=window.open(url,"_blank");
+
+  const tab=window.open(
+   url,
+   "_blank"
+  );
 
   if(!tab){
 
    URL.revokeObjectURL(url);
 
-   alert("PDF konnte nicht geöffnet werden.");
+   alert(
+    "PDF konnte nicht geöffnet werden."
+   );
 
    return;
 
@@ -917,7 +891,7 @@ function showPDF(d){
 
 }
 
-/* POCKETCARD ANZEIGEN */
+/* EINZELNE POCKETCARD ANZEIGEN */
 
 function makeDocument(d){
 
@@ -940,7 +914,10 @@ function makeDocument(d){
  arrow.textContent="›";
 
  open.append(icon,name,arrow);
- open.onclick=()=>showPDF(d);
+
+ open.onclick=()=>{
+  showPDF(d);
+ };
 
  const actions=document.createElement("div");
  actions.className="actions";
@@ -985,7 +962,9 @@ function makeDocument(d){
 
   if(!confirm(
    "Diese Pocketcard aus der App entfernen?"
-  ))return;
+  )){
+   return;
+  }
 
   try{
 
@@ -1014,7 +993,7 @@ function makeDocument(d){
 
 }
 
-/* KATEGORIEN UND MY-HERO-SUCHERGEBNISSE */
+/* KATEGORIEN UND SUCHERGEBNISSE */
 
 function render(){
 
@@ -1023,7 +1002,10 @@ function render(){
  const container=$("categories");
  container.replaceChildren();
 
- const names=["Favoriten",...categoryNames];
+ const names=[
+  "Favoriten",
+  ...categoryNames
+ ];
 
  let totalMatches=0;
 
@@ -1050,13 +1032,9 @@ function render(){
 
   }
 
-  if(query&&!found.length)continue;
-
-  /*
-   Favoriten erscheinen zusätzlich in der
-   Favoriten-Kategorie. Für die Trefferzahl
-   zählen wir jede PDF nur einmal.
-  */
+  if(query&&!found.length){
+   continue;
+  }
 
   if(category!=="Favoriten"){
    totalMatches+=found.length;
@@ -1071,7 +1049,9 @@ function render(){
 
   details.addEventListener("toggle",()=>{
 
-   if($("search").value.trim())return;
+   if($("search").value.trim()){
+    return;
+   }
 
    if(details.open){
     expanded.add(category);
@@ -1113,6 +1093,7 @@ function render(){
 
    const empty=document.createElement("p");
    empty.className="empty";
+
    empty.textContent=
     "Noch keine Pocketcards vorhanden.";
 
@@ -1132,66 +1113,37 @@ function render(){
  }
 
  $("no-results").style.display=
-  query&&!totalMatches?"block":"none";
-
- if(!query){
-
-  $("hero-status").textContent=
-   "My Hero ist bereit.";
-
- }else if(totalMatches===0){
-
-  $("hero-status").textContent=
-   "Keine passende Pocketcard gefunden.";
-
- }else{
-
-  $("hero-status").textContent=
-   "My Hero hat "+
-   totalMatches+
-   (totalMatches===1
-    ?" passende Pocketcard gefunden."
-    :" passende Pocketcards gefunden.");
-
- }
+  query&&!totalMatches
+   ?"block"
+   :"none";
 
 }
 
-/* SUCHFELD */
+/* MY HERO SUCHFELD */
 
 $("search").addEventListener("input",render);
 
 $("clear-search").addEventListener("click",()=>{
 
  $("search").value="";
+
  render();
+
  $("search").focus();
 
 });
-
-/* SCHNELLSUCHE */
-
-document.querySelectorAll(".hero-chip")
- .forEach(button=>{
-
-  button.addEventListener("click",()=>{
-
-   $("search").value=button.dataset.query;
-   render();
-   $("search").focus();
-
-  });
-
- });
 
 /* PDF HINZUFÜGEN */
 
 $("file").addEventListener("change",async e=>{
 
  const files=Array.from(e.target.files);
+
  const category=$("category").value;
 
- if(!files.length)return;
+ if(!files.length){
+  return;
+ }
 
  try{
 
@@ -1208,21 +1160,27 @@ $("file").addEventListener("change",async e=>{
 
    }
 
-   await operation("readwrite",s=>s.add({
-    name:file.name,
-    category:category,
-    favorite:false,
-    file:file
-   }));
+   await operation(
+    "readwrite",
+    s=>s.add({
+     name:file.name,
+     category:category,
+     favorite:false,
+     file:file
+    })
+   );
 
   }
 
   expanded.add(category);
+
   $("search").value="";
 
   await refresh();
 
-  alert("Pocketcard lokal gespeichert.");
+  alert(
+   "Pocketcard lokal gespeichert."
+  );
 
  }catch(error){
 
