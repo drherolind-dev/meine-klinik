@@ -12,33 +12,20 @@
 
 <style>
 *{box-sizing:border-box}
-
 body{
  margin:0;
  background:#f2f7f6;
  color:#173d39;
  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
-
 header{
  background:#087c73;
  color:white;
  padding:40px 22px 28px;
  border-radius:0 0 28px 28px;
 }
-
-h1{
- margin:0;
- font-size:30px;
- font-weight:700;
-}
-
-main{
- padding:22px 18px 35px;
- max-width:700px;
- margin:auto;
-}
-
+h1{margin:0;font-size:30px;font-weight:700}
+main{padding:22px 18px 35px;max-width:700px;margin:auto}
 #search,select{
  width:100%;
  padding:16px;
@@ -48,7 +35,6 @@ main{
  background:white;
  color:#173d39;
 }
-
 #search{margin-bottom:24px}
 h2{font-size:22px;margin:0 0 16px}
 
@@ -58,7 +44,6 @@ h2{font-size:22px;margin:0 0 16px}
  margin:12px 0;
  overflow:hidden;
 }
-
 .category summary{
  list-style:none;
  display:flex;
@@ -71,10 +56,8 @@ h2{font-size:22px;margin:0 0 16px}
  font-weight:650;
  color:#263344;
 }
-
 .category summary::-webkit-details-marker{display:none}
 .category[open] summary{background:#e1f0eb;color:#087c73}
-
 .category-icon{
  width:43px;
  height:43px;
@@ -86,7 +69,6 @@ h2{font-size:22px;margin:0 0 16px}
  flex-shrink:0;
  font-size:21px;
 }
-
 .category[open] .category-icon{background:white}
 .category-title{flex:1;min-width:0}
 .count{font-size:13px;font-weight:500;color:#718096;margin-left:5px}
@@ -95,7 +77,6 @@ h2{font-size:22px;margin:0 0 16px}
 .category-content{padding:8px 14px 14px;background:white}
 .doc{padding:14px 5px;border-bottom:1px solid #edf1f2}
 .doc:last-child{border-bottom:0}
-
 .doc-open{
  width:100%;
  display:flex;
@@ -110,12 +91,10 @@ h2{font-size:22px;margin:0 0 16px}
  font-weight:600;
  cursor:pointer;
 }
-
 .doc-open span:first-child{font-size:20px}
 .doc-name{flex:1;overflow-wrap:anywhere}
 .arrow{color:#94a3b8;font-size:24px}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin:5px 0 0 32px}
-
 .actions button{
  border:0;
  border-radius:10px;
@@ -123,7 +102,6 @@ h2{font-size:22px;margin:0 0 16px}
  font-size:14px;
  font-weight:600;
 }
-
 .favorite{background:#e2f0ed;color:#075c55}
 .danger{background:#fff0ed;color:#9d3425}
 .empty{color:#64748b;margin:10px 5px 5px;font-size:15px}
@@ -135,10 +113,12 @@ h2{font-size:22px;margin:0 0 16px}
  background:white;
  border-radius:19px;
 }
-
 .upload-area h2{margin-bottom:14px}
-.upload-area label:not(.upload){display:block;margin-bottom:9px;font-size:15px}
-
+.upload-area label:not(.upload){
+ display:block;
+ margin-bottom:9px;
+ font-size:15px;
+}
 .upload{
  display:block;
  text-align:center;
@@ -151,10 +131,137 @@ h2{font-size:22px;margin:0 0 16px}
  font-weight:650;
  cursor:pointer;
 }
-
 .upload input{display:none}
 #status{font-size:12px;color:#52736e;margin:20px 3px 10px}
-.note{display:block;color:#64748b;font-size:12px;line-height:1.6;margin:0 3px}
+.note{
+ display:block;
+ color:#64748b;
+ font-size:12px;
+ line-height:1.6;
+ margin:0 3px;
+}
+
+/* Dein hero – Medizinische KI */
+.hero-section{
+ margin:0 0 30px;
+ background:white;
+ border-radius:22px;
+ padding:20px;
+ border:1px solid #d9e9e5;
+ box-shadow:0 3px 15px rgba(0,0,0,.035);
+}
+.hero-heading{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin-bottom:8px;
+}
+.hero-symbol{
+ display:grid;
+ place-items:center;
+ width:49px;
+ height:49px;
+ background:#e1f0eb;
+ border-radius:15px;
+ font-size:26px;
+}
+.hero-heading h2{
+ margin:0;
+ color:#087c73;
+ font-size:24px;
+}
+.hero-subtitle{
+ margin:0 0 17px;
+ color:#52736e;
+ font-size:14px;
+ line-height:1.5;
+}
+.hero-label{
+ display:block;
+ margin-bottom:9px;
+ font-size:15px;
+ font-weight:600;
+}
+#hero-question{
+ width:100%;
+ min-height:115px;
+ resize:vertical;
+ padding:14px;
+ border:1px solid #cbded9;
+ border-radius:14px;
+ background:#f9fcfb;
+ font:inherit;
+ font-size:16px;
+ color:#173d39;
+ line-height:1.5;
+}
+#hero-question:focus{
+ outline:2px solid #087c73;
+ outline-offset:1px;
+}
+.hero-button{
+ width:100%;
+ border:0;
+ border-radius:13px;
+ background:#087c73;
+ color:white;
+ padding:15px;
+ font-size:16px;
+ font-weight:650;
+ cursor:pointer;
+ margin-top:12px;
+}
+.hero-button:disabled{
+ opacity:.6;
+ cursor:wait;
+}
+.hero-secondary{
+ background:#e1f0eb;
+ color:#075c55;
+}
+.hero-answer{
+ margin-top:16px;
+ padding:15px;
+ border-radius:14px;
+ background:#f2f7f6;
+ font-size:15px;
+ line-height:1.65;
+ overflow-wrap:anywhere;
+ white-space:pre-wrap;
+}
+.hero-answer[hidden]{display:none}
+.hero-sources{
+ margin:10px 0 0;
+ padding-left:22px;
+}
+.hero-sources li{margin:7px 0}
+.hero-sources a{
+ color:#087c73;
+ overflow-wrap:anywhere;
+}
+.hero-links{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin-top:15px;
+}
+.hero-link{
+ display:block;
+ text-align:center;
+ text-decoration:none;
+ padding:13px 7px;
+ border-radius:12px;
+ background:#e1f0eb;
+ color:#075c55;
+ font-size:14px;
+ font-weight:650;
+}
+.hero-warning{
+ margin:15px 0 0;
+ color:#64748b;
+ font-size:12px;
+ line-height:1.6;
+}
 </style>
 </head>
 
@@ -166,6 +273,82 @@ h2{font-size:22px;margin:0 0 16px}
 
 <main>
 
+<section class="hero-section" aria-labelledby="hero-title">
+
+ <div class="hero-heading">
+  <div class="hero-symbol" aria-hidden="true">🩺</div>
+  <h2 id="hero-title">Dein hero</h2>
+ </div>
+
+ <p class="hero-subtitle">
+  Dein medizinischer KI-Assistent für allgemeine
+  medizinische Fachfragen.
+ </p>
+
+ <label class="hero-label" for="hero-question">
+  Was möchtest du medizinisch wissen?
+ </label>
+
+ <textarea
+  id="hero-question"
+  maxlength="4000"
+  placeholder="z. B. Was empfehlen aktuelle Leitlinien zur Behandlung einer ambulant erworbenen Pneumonie?"
+ ></textarea>
+
+ <button
+  id="hero-ask"
+  class="hero-button"
+  type="button"
+ >
+  ✨ Dein hero fragen
+ </button>
+
+ <div
+  id="hero-answer"
+  class="hero-answer"
+  role="status"
+  aria-live="polite"
+  hidden
+ ></div>
+
+ <button
+  id="hero-copy"
+  class="hero-button hero-secondary"
+  type="button"
+ >
+  Frage kopieren
+ </button>
+
+ <div class="hero-links">
+  <a
+   class="hero-link"
+   href="https://www.openevidence.com/"
+   target="_blank"
+   rel="noopener noreferrer"
+  >
+   OpenEvidence ↗
+  </a>
+
+  <a
+   class="hero-link"
+   href="https://www.uptodate.com/"
+   target="_blank"
+   rel="noopener noreferrer"
+  >
+   UpToDate ↗
+  </a>
+ </div>
+
+ <p class="hero-warning">
+  Noch keine KI-API verbunden. OpenEvidence und
+  UpToDate öffnen als separate Fachquellen.
+  Bitte keine Patientendaten eingeben.
+  KI-Antworten müssen anhand aktueller Fachquellen
+  überprüft werden.
+ </p>
+
+</section>
+
 <input
  id="search"
  type="search"
@@ -174,36 +357,48 @@ h2{font-size:22px;margin:0 0 16px}
 >
 
 <h2>Meine Kategorien</h2>
+
 <div id="categories"></div>
 
-<p id="no-results">Keine passende Pocketcard gefunden.</p>
+<p id="no-results">
+ Keine passende Pocketcard gefunden.
+</p>
 
 <section class="upload-area">
-<h2>PDF hinzufügen</h2>
 
-<label for="category">Kategorie für neue Pocketcards auswählen:</label>
+ <h2>PDF hinzufügen</h2>
 
-<select id="category">
-<option>Pneumologie</option>
-<option>Infektiologie</option>
-<option>Notfall</option>
-<option>Kardiologie</option>
-<option>Intensivmedizin</option>
-<option>Andere</option>
-</select>
+ <label for="category">
+  Kategorie für neue Pocketcards auswählen:
+ </label>
 
-<label class="upload">
-＋ PDF hinzufügen
-<input id="file" type="file" accept="application/pdf,.pdf" multiple>
-</label>
+ <select id="category">
+  <option>Pneumologie</option>
+  <option>Infektiologie</option>
+  <option>Notfall</option>
+  <option>Kardiologie</option>
+  <option>Intensivmedizin</option>
+  <option>Andere</option>
+ </select>
+
+ <label class="upload">
+  ＋ PDF hinzufügen
+  <input
+   id="file"
+   type="file"
+   accept="application/pdf,.pdf"
+   multiple
+  >
+ </label>
 
 </section>
 
 <p id="status">App wird vorbereitet ...</p>
 
 <small class="note">
-Die PDFs werden lokal in diesem App-Speicher gesichert und nicht an GitHub gesendet.
-Originale in Dateien aufbewahren.
+ Die PDFs werden lokal in diesem App-Speicher
+ gesichert und nicht an GitHub gesendet.
+ Originale in Dateien aufbewahren.
 </small>
 
 </main>
@@ -211,9 +406,179 @@ Originale in Dateien aufbewahren.
 <script>
 "use strict";
 
-let db,documents=[];
+/*
+ DEIN HERO – API-VORBEREITUNG
+
+ Leer lassen, bis ein sicherer Backend-Dienst
+ eingerichtet ist.
+
+ NIEMALS einen geheimen API-Schlüssel hier
+ eintragen oder auf GitHub veröffentlichen.
+
+ Der spätere Backend-Endpunkt erwartet:
+ POST { "question": "..." }
+
+ Antwort:
+ {
+   "answer": "Medizinische Antwort...",
+   "sources": [
+     {
+       "title": "Quelle",
+       "url": "https://..."
+     }
+   ]
+ }
+
+ Der Backend-Dienst muss selbst den
+ autorisierten Zugriff auf medizinische
+ Fachquellen sicherstellen.
+*/
+
+const HERO_API_URL="";
 
 const $=id=>document.getElementById(id);
+
+function heroMessage(message){
+ const answer=$("hero-answer");
+ answer.hidden=false;
+ answer.textContent=message;
+}
+
+$("hero-ask").addEventListener("click",async()=>{
+
+ const question=$("hero-question").value.trim();
+
+ if(!question){
+  heroMessage("Bitte gib zuerst eine medizinische Frage ein.");
+  return;
+ }
+
+ if(!HERO_API_URL){
+  heroMessage(
+   "Dein hero ist vorbereitet, aber noch nicht "+
+   "mit einer medizinischen KI-API verbunden.\n\n"+
+   "Du kannst deine Frage kopieren und sie "+
+   "anschliessend in OpenEvidence oder "+
+   "UpToDate recherchieren.\n\n"+
+   "Eine direkte Antwort hier ist erst möglich, "+
+   "wenn ein sicherer API-Zugang eingerichtet wurde."
+  );
+  return;
+ }
+
+ const button=$("hero-ask");
+ button.disabled=true;
+ button.textContent="Dein hero recherchiert ...";
+
+ heroMessage("Deine Frage wird verarbeitet ...");
+
+ try{
+
+  const response=await fetch(HERO_API_URL,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({question}),
+   cache:"no-store"
+  });
+
+  if(!response.ok){
+   throw new Error("Serverfehler "+response.status);
+  }
+
+  const result=await response.json();
+
+  if(typeof result.answer!=="string"||!result.answer.trim()){
+   throw new Error("Keine gültige Antwort erhalten.");
+  }
+
+  const answer=$("hero-answer");
+  answer.replaceChildren();
+
+  const content=document.createElement("div");
+  content.textContent=result.answer;
+  answer.append(content);
+
+  if(Array.isArray(result.sources)&&result.sources.length){
+
+   const heading=document.createElement("strong");
+   heading.textContent="Quellen:";
+   answer.append(document.createElement("p"),heading);
+
+   const list=document.createElement("ul");
+   list.className="hero-sources";
+
+   for(const source of result.sources){
+
+    if(!source||typeof source.url!=="string")continue;
+
+    let url;
+
+    try{
+     url=new URL(source.url);
+     if(!["https:","http:"].includes(url.protocol))continue;
+    }catch{
+     continue;
+    }
+
+    const item=document.createElement("li");
+    const link=document.createElement("a");
+
+    link.href=url.href;
+    link.target="_blank";
+    link.rel="noopener noreferrer";
+    link.textContent=
+     typeof source.title==="string"&&source.title.trim()
+      ?source.title
+      :url.hostname;
+
+    item.append(link);
+    list.append(item);
+   }
+
+   if(list.children.length)answer.append(list);
+  }
+
+ }catch(error){
+  heroMessage(
+   "Dein hero konnte die Anfrage nicht beantworten.\n"+
+   error.message
+  );
+ }finally{
+  button.disabled=false;
+  button.textContent="✨ Dein hero fragen";
+ }
+
+});
+
+$("hero-copy").addEventListener("click",async()=>{
+
+ const question=$("hero-question").value.trim();
+
+ if(!question){
+  heroMessage("Bitte zuerst eine Frage eingeben.");
+  return;
+ }
+
+ try{
+  await navigator.clipboard.writeText(question);
+  heroMessage(
+   "Frage kopiert. Du kannst sie jetzt in "+
+   "OpenEvidence oder UpToDate verwenden."
+  );
+ }catch(error){
+  $("hero-question").focus();
+  $("hero-question").select();
+  heroMessage(
+   "Bitte den markierten Text über das "+
+   "iPhone-Menü kopieren."
+  );
+ }
+
+});
+
+/* BESTEHENDE POCKETCARDS UND PDF-SPEICHER */
+
+let db,documents=[];
 
 const categoryNames=[
  "Pneumologie",
@@ -238,32 +603,39 @@ const expanded=new Set();
 
 function openDB(){
  return new Promise((resolve,reject)=>{
+
   const request=indexedDB.open("meine-klinik-local",1);
 
   request.onupgradeneeded=()=>{
+
    if(!request.result.objectStoreNames.contains("pdfs")){
     request.result.createObjectStore("pdfs",{
      keyPath:"id",
      autoIncrement:true
     });
    }
+
   };
 
   request.onsuccess=()=>resolve(request.result);
   request.onerror=()=>reject(request.error);
+
  });
 }
 
 function operation(mode,action){
  return new Promise((resolve,reject)=>{
+
   const tx=db.transaction("pdfs",mode);
   const request=action(tx.objectStore("pdfs"));
+
   let result;
 
   request.onsuccess=()=>{result=request.result};
   tx.oncomplete=()=>resolve(result);
   tx.onerror=()=>reject(tx.error);
   tx.onabort=()=>reject(tx.error);
+
  });
 }
 
@@ -273,11 +645,15 @@ async function refresh(){
 }
 
 function displayName(filename){
- return filename.replace(/\.pdf$/i,"").replace(/_/g," ");
+ return filename
+  .replace(/\.pdf$/i,"")
+  .replace(/_/g," ");
 }
 
 function showPDF(d){
+
  try{
+
   const url=URL.createObjectURL(d.file);
   const tab=window.open(url,"_blank");
 
@@ -290,11 +666,16 @@ function showPDF(d){
   setTimeout(()=>URL.revokeObjectURL(url),60000);
 
  }catch(error){
-  alert("PDF konnte nicht geöffnet werden: "+error.message);
+  alert(
+   "PDF konnte nicht geöffnet werden: "+
+   error.message
+  );
  }
+
 }
 
 function makeDocument(d){
+
  const row=document.createElement("div");
  row.className="doc";
 
@@ -325,13 +706,18 @@ function makeDocument(d){
  favorite.textContent=d.favorite?"★ Favorit":"☆ Favorit";
 
  favorite.onclick=async()=>{
+
   try{
+
    d.favorite=!d.favorite;
+
    await operation("readwrite",s=>s.put(d));
    await refresh();
+
   }catch(error){
    alert("Änderung fehlgeschlagen: "+error.message);
   }
+
  };
 
  const remove=document.createElement("button");
@@ -340,14 +726,20 @@ function makeDocument(d){
  remove.textContent="Löschen";
 
  remove.onclick=async()=>{
-  if(!confirm("Diese Pocketcard aus der App entfernen?"))return;
+
+  if(!confirm("Diese Pocketcard aus der App entfernen?")){
+   return;
+  }
 
   try{
+
    await operation("readwrite",s=>s.delete(d.id));
    await refresh();
+
   }catch(error){
    alert("Löschen fehlgeschlagen: "+error.message);
   }
+
  };
 
  actions.append(favorite,remove);
@@ -357,9 +749,12 @@ function makeDocument(d){
 }
 
 function render(){
- const query=$("search").value.trim().toLocaleLowerCase("de");
- const container=$("categories");
 
+ const query=$("search").value
+  .trim()
+  .toLocaleLowerCase("de");
+
+ const container=$("categories");
  container.replaceChildren();
 
  const names=["Favoriten",...categoryNames];
@@ -368,12 +763,20 @@ function render(){
  for(const category of names){
 
   const all=documents.filter(d=>
-   category==="Favoriten"?!!d.favorite:d.category===category
+   category==="Favoriten"
+    ?!!d.favorite
+    :d.category===category
   );
 
   const found=all.filter(d=>
-   displayName(d.name).toLocaleLowerCase("de").includes(query)||
-   (query&&d.category.toLocaleLowerCase("de").includes(query))
+   displayName(d.name)
+    .toLocaleLowerCase("de")
+    .includes(query)
+   ||
+   (
+    query&&
+    d.category.toLocaleLowerCase("de").includes(query)
+   )
   );
 
   if(query&&!found.length)continue;
@@ -385,10 +788,12 @@ function render(){
   details.open=query?true:expanded.has(category);
 
   details.addEventListener("toggle",()=>{
+
    if($("search").value.trim())return;
 
    if(details.open)expanded.add(category);
    else expanded.delete(category);
+
   });
 
   const summary=document.createElement("summary");
@@ -417,33 +822,45 @@ function render(){
   content.className="category-content";
 
   if(!found.length){
+
    const empty=document.createElement("p");
    empty.className="empty";
    empty.textContent="Noch keine Pocketcards vorhanden.";
    content.append(empty);
+
   }else{
+
    found.forEach(d=>content.append(makeDocument(d)));
+
   }
 
   details.append(summary,content);
   container.append(details);
+
  }
 
- $("no-results").style.display=query&&!matches?"block":"none";
+ $("no-results").style.display=
+  query&&!matches?"block":"none";
+
 }
 
 $("search").addEventListener("input",render);
 
 $("file").addEventListener("change",async e=>{
+
  const files=Array.from(e.target.files);
  const category=$("category").value;
 
  if(!files.length)return;
 
  try{
+
   for(const file of files){
 
-   if(file.type!=="application/pdf"&&!file.name.toLowerCase().endsWith(".pdf")){
+   if(
+    file.type!=="application/pdf"&&
+    !file.name.toLowerCase().endsWith(".pdf")
+   ){
     throw Error("Bitte nur PDF-Dateien auswählen.");
    }
 
@@ -453,6 +870,7 @@ $("file").addEventListener("change",async e=>{
     favorite:false,
     file:file
    }));
+
   }
 
   expanded.add(category);
@@ -467,29 +885,44 @@ $("file").addEventListener("change",async e=>{
  }
 
  e.target.value="";
+
 });
 
 async function start(){
+
  try{
+
   db=await openDB();
   await refresh();
 
   $("status").textContent="Lokaler PDF-Speicher bereit.";
 
  }catch(error){
-  $("status").textContent="Speicherfehler: "+error.message;
+
+  $("status").textContent=
+   "Speicherfehler: "+error.message;
+
  }
 
  if("serviceWorker" in navigator){
+
   try{
+
    await navigator.serviceWorker.register("./sw.js");
+
   }catch(error){
-   $("status").textContent+=" Offline-Einrichtung fehlgeschlagen.";
+
+   $("status").textContent+=
+    " Offline-Einrichtung fehlgeschlagen.";
+
   }
+
  }
+
 }
 
 start();
+
 </script>
 
 </body>
